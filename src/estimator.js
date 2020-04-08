@@ -1,39 +1,70 @@
-/* eslint-disable max-len */
-const input = {
-  periodType: 'days',
-  timeToElapse: 58,
-  reportedCases: 674,
-  population: 66622705,
-  totalHospitalBeds: 1380614
+const calculatePeriod = (data) => {
+  if (data.periodType === 'weeks') {
+    return 2 ** Math.floor((data.timeToElapse * 7) / 3);
+  }
+  if (data.periodType === 'months') {
+    return 2 ** Math.floor((data.timeToElapse * 30) / 3);
+  }
+
+  return 2 ** Math.floor(data.timeToElapse / 3);
 };
+const getDays = (data) => {
+  if (data.periodType === 'weeks') {
+    return 7 * data.timeToElapse;
+  }
+  if (data.periodType === 'months') {
+    return 30 * data.timeToElapse;
+  }
 
-const covid19ImpactEstimator = (data) => {
-  // Challange 1:
+  return 1 * data.timeToElapse;
+};
+const currentInfections = (data) => {
   const currentlyInfected = data.reportedCases * 10;
-  const severeImpact = data.reportedCases * 50;
-  const infectionsByRequestedTimeForImpact = currentlyInfected * 512;
-  const infectionsByRequestedTimeForSevereImpact = severeImpact * 512;
-
-  // Challange II:
-  const severeCasesByRequestedTimeForImpact = infectionsByRequestedTimeForImpact * 0.15;
-  const severeCasesByRequestedTimeForSevereImpact = infectionsByRequestedTimeForSevereImpact * 0.15;
-  const totalHospitalBedsAt95Percent = data.totalHospitalBeds * 0.95;
-  const bedsAlreadyOccupied = totalHospitalBedsAt95Percent * 0.65;
-
-  const availableBedsAfter65PercentOccupied = totalHospitalBedsAt95Percent - bedsAlreadyOccupied;
-  const severeCasesByRequestedTimeForImpactAt35Percent = severeCasesByRequestedTimeForImpact * 0.35;
-
-  const severeCasesByRequestedTimeForSevereImpactAt35Percent = severeCasesByRequestedTimeForSevereImpact * 0.35;
-  const hospitalBedsByRequestedTimeForImpact = availableBedsAfter65PercentOccupied
-    - severeCasesByRequestedTimeForImpactAt35Percent;
-  const hospitalBedsByRequestedTimeForSevereImpact = availableBedsAfter65PercentOccupied
-    - severeCasesByRequestedTimeForSevereImpactAt35Percent;
+  const infectionsByRequestedTime = currentlyInfected * calculatePeriod(data);
+  const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
+  const compute = (35 / 100) * data.totalHospitalBeds;
+  const hospitalBedsByRequestedTime = compute - severeCasesByRequestedTime;
+  const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
+  const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
+  const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
+  const dollarsInFlight = infectionsByRequestedTime * result * getDays(data);
 
   return {
-    data: input,
-    impact: hospitalBedsByRequestedTimeForImpact,
-    severeImpact: hospitalBedsByRequestedTimeForSevereImpact
+    currentlyInfected,
+    infectionsByRequestedTime,
+    severeCasesByRequestedTime,
+    hospitalBedsByRequestedTime,
+    casesForICUByRequestedTime,
+    casesForVentilatorsByRequestedTime,
+    dollarsInFlight
   };
 };
+const projectedInfections = (data) => {
+  const currentlyInfected = data.reportedCases * 50;
+  const infectionsByRequestedTime = currentlyInfected * calculatePeriod(data);
+  const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
+  const compute = (35 / 100) * data.totalHospitalBeds;
+  const hospitalBedsByRequestedTime = compute - severeCasesByRequestedTime;
+  const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
+  const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
+  const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
+  const dollarsInFlight = infectionsByRequestedTime * result * getDays(data);
+
+  return {
+    currentlyInfected,
+    infectionsByRequestedTime,
+    severeCasesByRequestedTime,
+    hospitalBedsByRequestedTime,
+    casesForICUByRequestedTime,
+    casesForVentilatorsByRequestedTime,
+    dollarsInFlight
+  };
+};
+
+const covid19ImpactEstimator = (data) => ({
+  data,
+  impact: currentInfections(data),
+  severeImpact: projectedInfections(data)
+});
 
 export default covid19ImpactEstimator;
