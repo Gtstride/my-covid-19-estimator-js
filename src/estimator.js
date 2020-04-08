@@ -1,22 +1,25 @@
-const input = {
-  periodType: 'days',
-  timeToElapse: 58,
-  reportedCases: 674,
-  population: 66622705,
-  totalHospitalBeds: 1380614
-};
-
 const covid19ImpactEstimator = (data) => {
-  // Challange 1:
-  const currentlyInfected = data.reportedCases * 10;
-  const severeImpact = data.reportedCases * 50;
-  const infectionsByRequestedTimeForImpact = currentlyInfected * 512;
-  const infectionsByRequestedTimeForSevereImpact = severeImpact * 512;
-
+  const { periodType, timeToElapse, reportedCases } = data;
+  const currentlyInfected1 = reportedCases * 10;
+  const currentlyInfected2 = reportedCases * 50;
+  let multiplier;
+  if (periodType === 'months') {
+    multiplier = timeToElapse * 30;
+  } else if (periodType === 'weeks') {
+    multiplier = timeToElapse * 7;
+  } else {
+    multiplier = timeToElapse;
+  }
   return {
-    data: input,
-    impact: infectionsByRequestedTimeForImpact,
-    severeImpact: infectionsByRequestedTimeForSevereImpact
+    data,
+    impact: {
+      currentlyInfected: currentlyInfected1,
+      infectionsByRequestedTime: currentlyInfected1 * 2 ** (multiplier / 3)
+    },
+    severeImpact: {
+      currentlyInfected: currentlyInfected2,
+      infectionsByRequestedTime: currentlyInfected2 * 2 ** (multiplier / 3)
+    }
   };
 };
 
