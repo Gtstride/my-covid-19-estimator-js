@@ -1,40 +1,34 @@
 const calculatePeriod = (data) => {
   if (data.periodType === 'weeks') {
-    return 2 ** Math.round((data.timeToElapse * 7) / 3);
+    return 2 ** Math.floor((data.timeToElapse * 7) / 3);
   }
   if (data.periodType === 'months') {
-    return 2 ** Math.round((data.timeToElapse * 30) / 3);
+    return 2 ** Math.floor((data.timeToElapse * 30) / 3);
   }
-
-  return 2 ** Math.(data.timeToElapse / 3);
+  return 2 ** Math.round(data.timeToElapse);
 };
 
 const currentInfections = (data) => {
   const currentlyInfected = data.reportedCases * 10;
   const infectionsByRequestedTime = currentlyInfected * calculatePeriod(data);
   const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
-  const compute = (35 / 100) * data.totalHospitalBeds;
-  const hospitalBedsByRequestedTime = compute - severeCasesByRequestedTime;
 
   return {
     currentlyInfected,
     infectionsByRequestedTime,
-    severeCasesByRequestedTime,
-    hospitalBedsByRequestedTime
+    severeCasesByRequestedTime
   };
 };
+
 const projectedInfections = (data) => {
   const currentlyInfected = data.reportedCases * 50;
   const infectionsByRequestedTime = currentlyInfected * calculatePeriod(data);
   const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
-  const compute = (35 / 100) * data.totalHospitalBeds;
-  const hospitalBedsByRequestedTime = compute - severeCasesByRequestedTime;
 
   return {
     currentlyInfected,
     infectionsByRequestedTime,
-    severeCasesByRequestedTime,
-    hospitalBedsByRequestedTime
+    severeCasesByRequestedTime
   };
 };
 
