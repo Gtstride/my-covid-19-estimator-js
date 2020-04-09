@@ -25,7 +25,9 @@ const currentInfections = (data) => {
   const infectionsByRequestedTime = currentlyInfected * calculatePeriod(data);
   const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
   const compute = (35 / 100) * data.totalHospitalBeds;
-  const hospitalBedsByRequestedTime = compute - severeCasesByRequestedTime;
+  const hospitalBedsByRequestedTime = Math.floor(
+    compute - severeCasesByRequestedTime
+  );
   const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
   const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
   const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
