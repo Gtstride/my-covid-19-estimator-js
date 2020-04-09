@@ -9,16 +9,16 @@ const calculatePeriod = (data) => {
   return 2 ** Math.floor(data.timeToElapse / 3);
 };
 
-// const getDays = (data) => {
-//   if (data.periodType === 'months') {
-//     return Math.floor(30 * data.timeToElapse);
-//   }
-//   if (data.periodType === 'weeks') {
-//     return Math.floor(7 * data.timeToElapse);
-//   }
+const getDays = (data) => {
+  if (data.periodType === 'months') {
+    return Math.floor(30 * data.timeToElapse);
+  }
+  if (data.periodType === 'weeks') {
+    return Math.floor(7 * data.timeToElapse);
+  }
 
-//   return Math.floor(1 * data.timeToElapse);
-// };
+  return Math.floor(1 * data.timeToElapse);
+};
 
 const currentInfections = (data) => {
   const currentlyInfected = data.reportedCases * 10;
@@ -26,19 +26,19 @@ const currentInfections = (data) => {
   const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
   const compute = (35 / 100) * data.totalHospitalBeds;
   const hospitalBedsByRequestedTime = compute - severeCasesByRequestedTime;
-  // const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
-  // const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
-  // const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
-  // const dollarsInFlight = infectionsByRequestedTime * result * getDays(data);
+  const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
+  const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
+  const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
+  const dollarsInFlight = infectionsByRequestedTime * result * getDays(data);
 
   return {
     currentlyInfected,
     infectionsByRequestedTime,
     severeCasesByRequestedTime,
-    hospitalBedsByRequestedTime
-    // casesForICUByRequestedTime,
-    // casesForVentilatorsByRequestedTime,
-    // dollarsInFlight
+    hospitalBedsByRequestedTime,
+    casesForICUByRequestedTime,
+    casesForVentilatorsByRequestedTime,
+    dollarsInFlight
   };
 };
 const projectedInfections = (data) => {
@@ -47,19 +47,19 @@ const projectedInfections = (data) => {
   const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
   const compute = (35 / 100) * data.totalHospitalBeds;
   const hospitalBedsByRequestedTime = compute - severeCasesByRequestedTime;
-  // const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
-  // const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
-  // const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
-  // const dollarsInFlight = infectionsByRequestedTime * result * getDays(data);
+  const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
+  const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
+  const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
+  const dollarsInFlight = infectionsByRequestedTime * result * getDays(data);
 
   return {
     currentlyInfected,
     infectionsByRequestedTime,
     severeCasesByRequestedTime,
-    hospitalBedsByRequestedTime
-    // casesForICUByRequestedTime,
-    // casesForVentilatorsByRequestedTime,
-    // dollarsInFlight
+    hospitalBedsByRequestedTime,
+    casesForICUByRequestedTime,
+    casesForVentilatorsByRequestedTime,
+    dollarsInFlight
   };
 };
 
