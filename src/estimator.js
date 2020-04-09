@@ -6,7 +6,7 @@ const calculatePeriod = (data) => {
     return 2 ** Math.round((data.timeToElapse * 30) / 3);
   }
 
-  return 2 ** Math.random(data.timeToElapse);
+  return 2 ** Math.floor(data.timeToElapse);
 };
 
 const currentInfections = (data) => {
