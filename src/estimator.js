@@ -1,6 +1,6 @@
 const calculatePeriod = (data) => {
   if (data.periodType === 'weeks') {
-    return 2 ** Math.floor((data.timeToElapse * 7) / 3);
+    return 2 ** Math.trunc((data.timeToElapse * 7) / 3);
   }
   if (data.periodType === 'months') {
     return 2 ** Math.round((data.timeToElapse * 30) / 3);
