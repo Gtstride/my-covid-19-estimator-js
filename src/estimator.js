@@ -9,36 +9,18 @@ const calculatePeriod = (data) => {
   return 2 ** Math.floor(data.timeToElapse / 3);
 };
 
-const getDays = (data) => {
-  if (data.periodType === 'weeks') {
-    return 7 * data.timeToElapse;
-  }
-  if (data.periodType === 'months') {
-    return 30 * data.timeToElapse;
-  }
-
-  return 1 * data.timeToElapse;
-};
-
 const currentInfections = (data) => {
   const currentlyInfected = data.reportedCases * 10;
   const infectionsByRequestedTime = currentlyInfected * calculatePeriod(data);
   const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
   const compute = (35 / 100) * data.totalHospitalBeds;
   const hospitalBedsByRequestedTime = compute - severeCasesByRequestedTime;
-  const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
-  const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
-  const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
-  const dollarsInFlight = infectionsByRequestedTime * result * getDays(data);
 
   return {
     currentlyInfected,
     infectionsByRequestedTime,
     severeCasesByRequestedTime,
-    hospitalBedsByRequestedTime,
-    casesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime,
-    dollarsInFlight
+    hospitalBedsByRequestedTime
   };
 };
 const projectedInfections = (data) => {
@@ -47,19 +29,12 @@ const projectedInfections = (data) => {
   const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
   const compute = (35 / 100) * data.totalHospitalBeds;
   const hospitalBedsByRequestedTime = compute - severeCasesByRequestedTime;
-  const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
-  const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
-  const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
-  const dollarsInFlight = infectionsByRequestedTime * result * getDays(data);
 
   return {
     currentlyInfected,
     infectionsByRequestedTime,
     severeCasesByRequestedTime,
-    hospitalBedsByRequestedTime,
-    casesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime,
-    dollarsInFlight
+    hospitalBedsByRequestedTime
   };
 };
 
