@@ -10,13 +10,14 @@ const calculatePeriod = (data) => {
 };
 
 const getDays = (data) => {
-  if (data.periodType === 'days') {
-    return 1 * Math.floor(data.timeToElapse);
+  if (data.periodType === 'months') {
+    return 30 * data.timeToElapse;
   }
   if (data.periodType === 'weeks') {
-    return 7 * Math.floor(data.timeToElapse);
+    return 7 * data.timeToElapse;
   }
-  return 30 * Math.floor(data.timeToElapse);
+
+  return 1 * data.timeToElapse;
 };
 
 const currentInfections = (data) => {
