@@ -28,7 +28,7 @@ const currentInfections = (data) => {
   const hospitalBedsByRequestedTime = Math.trunc(
     compute - severeCasesByRequestedTime
   );
-  const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
+  const casesForICUByRequestedTime = Math.trunc((5 / 100) * infectionsByRequestedTime);
   const casesForVentilatorsByRequestedTime = Math.trunc(
     (2 / 100) * infectionsByRequestedTime
   );
@@ -53,7 +53,7 @@ const projectedInfections = (data) => {
   const hospitalBedsByRequestedTime = Math.trunc(
     compute - severeCasesByRequestedTime
   );
-  const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
+  const casesForICUByRequestedTime = Math.trunc((5 / 100) * infectionsByRequestedTime);
   const casesForVentilatorsByRequestedTime = Math.trunc(
     (2 / 100) * infectionsByRequestedTime
   );
