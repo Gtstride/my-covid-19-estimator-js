@@ -53,7 +53,9 @@ const projectedInfections = (data) => {
   const hospitalBedsByRequestedTime = Math.trunc(
     compute - severeCasesByRequestedTime
   );
-  const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
+  const casesForICUByRequestedTime = Math.floor(
+    (5 / 100) * infectionsByRequestedTime
+  );
   const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
   const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
   const dollarsInFlight = Math.floor(
