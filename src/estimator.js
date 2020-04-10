@@ -25,7 +25,7 @@ const currentInfections = (data) => {
   const infectionsByRequestedTime = currentlyInfected * calculatePeriod(data);
   const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
   const compute = (35 / 100) * data.totalHospitalBeds;
-  const hospitalBedsByRequestedTime = Math.floor(
+  const hospitalBedsByRequestedTime = Math.trunc(
     compute - severeCasesByRequestedTime
   );
   const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
