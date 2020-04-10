@@ -31,7 +31,9 @@ const currentInfections = (data) => {
   const casesForICUByRequestedTime = (5 / 100) * infectionsByRequestedTime;
   const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
   const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
-  const dollarsInFlight = infectionsByRequestedTime * result * getDays(data);
+  const dollarsInFlight = Math.trunc(
+    infectionsByRequestedTime * result * getDays(data)
+  );
 
   return {
     currentlyInfected,
