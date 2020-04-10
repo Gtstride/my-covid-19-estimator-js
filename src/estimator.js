@@ -33,7 +33,11 @@ const currentInfections = (data) => {
   );
   const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
   const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
-  const dollarsInFlight = Math.trunc(
+  // const dollarsInFlight = Math.trunc(
+  //   infectionsByRequestedTime * result * getDays(data)
+  // );
+
+  const dollarsInFlight = Math.floor(
     infectionsByRequestedTime * result * getDays(data)
   );
 
@@ -66,7 +70,7 @@ const projectedInfections = (data) => {
   // const dollarsInFlight = Math.trunc((infectionsByRequestedTime * 0.65 * 1.5) / 30)
   //   * result
   //   * getDays(data);
-  const dollarsInFlight = Math.trunc(
+  const dollarsInFlight = Math.floor(
     infectionsByRequestedTime * result * getDays(data)
   );
 
