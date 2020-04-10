@@ -37,7 +37,7 @@ const currentInfections = (data) => {
   //   infectionsByRequestedTime * result * getDays(data)
   // );
 
-  const dollarsInFlight = Math.floor(
+  const dollarsInFlight = Math.trunc(
     infectionsByRequestedTime * result * getDays(data)
   );
 
@@ -70,7 +70,7 @@ const projectedInfections = (data) => {
   // const dollarsInFlight = Math.trunc((infectionsByRequestedTime * 0.65 * 1.5) / 30)
   //   * result
   //   * getDays(data);
-  const dollarsInFlight = Math.floor(
+  const dollarsInFlight = Math.trunc(
     infectionsByRequestedTime * result * getDays(data)
   );
 
