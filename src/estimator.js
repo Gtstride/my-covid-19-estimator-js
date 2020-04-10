@@ -59,7 +59,9 @@ const projectedInfections = (data) => {
   const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
   // const dollarsInFlight = infectionsByRequestedTime * result * getDays(data);
 
-  const dollarsInFlight = ((infectionsByRequestedTime * 0.65 * 1.5) / 30) * result * getDays(data);
+  const dollarsInFlight = Math.trunc((infectionsByRequestedTime * 0.65 * 1.5) / 30)
+    * result
+    * getDays(data);
 
   return {
     currentlyInfected,
