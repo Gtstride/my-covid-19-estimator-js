@@ -16,10 +16,10 @@ const takeWholeNum = (x) => {
   }
   return Number(t.slice(0, t.indexOf('.')));
 };
-// const infByReqTime = (elapsedTime, cInf) => {
-//   const exponent = takeWholeNum(elapsedTime / 3);
-//   return cInf * (2 ** exponent);
-// };
+const infByReqTime = (elapsedTime, cInf) => {
+  const exponent = takeWholeNum(elapsedTime / 3);
+  return cInf * 2 ** exponent;
+};
 
 const getDays = (data) => {
   if (data.periodType === 'months') {
@@ -28,24 +28,25 @@ const getDays = (data) => {
   if (data.periodType === 'weeks') {
     return 7 * data.timeToElapse;
   }
-
   return 1 * data.timeToElapse;
 };
 
 const currentInfections = (data) => {
   const currentlyInfected = data.reportedCases * 10;
   const infectionsByRequestedTime = currentlyInfected * takeWholeNum(data);
-  const severeCasesByRequestedTime = (15 / 100) * infectionsByRequestedTime;
+  const severeCasesByRequestedTime = takeWholeNum(
+    infByReqTime(15 / 100) * infectionsByRequestedTime
+  );
   const compute = (35 / 100) * data.totalHospitalBeds;
-  const hospitalBedsByRequestedTime = Math.trunc(
+  const hospitalBedsByRequestedTime = takeWholeNum(
     compute - severeCasesByRequestedTime
   );
-  const casesForICUByRequestedTime = Math.trunc(
+  const casesForICUByRequestedTime = takeWholeNum(
     (5 / 100) * infectionsByRequestedTime
   );
   const casesForVentilatorsByRequestedTime = (2 / 100) * infectionsByRequestedTime;
   const result = data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation;
-  const dollarsInFlight = Math.trunc(
+  const dollarsInFlight = takeWholeNum(
     infectionsByRequestedTime * result * getDays(data)
   );
 
