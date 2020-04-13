@@ -47,7 +47,7 @@ exports.getData = (req, res) => {
   } = req.body;
 
   return res.status(200).json({
-    impact: JSON.stringify([
+    impact: // JSON.stringify([
       {
         currentlyInfected,
         infectionsByRequestedTime,
@@ -56,10 +56,10 @@ exports.getData = (req, res) => {
         casesForICUByRequestedTime,
         casesForVentilatorsByRequestedTime,
         dollarsInFlight
-      }
-    ]),
+      },
+    // ]),
 
-    severeImpact: JSON.stringify([
+    severeImpact: // JSON.stringify([
       {
         currentlyInfected,
         infectionsByRequestedTime,
@@ -69,7 +69,7 @@ exports.getData = (req, res) => {
         casesForVentilatorsByRequestedTime,
         dollarsInFlight
       }
-    ])
+    // ])
   });
 };
 

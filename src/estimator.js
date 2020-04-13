@@ -23,6 +23,7 @@ const inDays = (periodType, timeToElapse) => {
   return result;
 };
 
+
 const covid19ImpactEstimator = (data) => {
   const impactRC = data.reportedCases * 10;
   const sImpactRC = data.reportedCases * 50;
@@ -68,4 +69,4 @@ const covid19ImpactEstimator = (data) => {
     }
   };
 };
-export default covid19ImpactEstimator;
+module.exports = covid19ImpactEstimator;
