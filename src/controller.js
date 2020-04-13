@@ -1,6 +1,6 @@
-import covid19ImpactEstimator from './estimator';
+const covid19ImpactEstimator = require('./estimator').data;
 
-// const impact = require('./estimator');
+const impact = require('./estimator').data;
 
 exports.dataPost = (req, res, next) => {
   const {
@@ -35,7 +35,7 @@ exports.dataPost = (req, res, next) => {
   next();
 };
 
-exports.getData = (req, res, next) => {
+exports.getData = (req, res) => {
   const {
     currentlyInfected,
     infectionsByRequestedTime,
@@ -46,7 +46,7 @@ exports.getData = (req, res, next) => {
     dollarsInFlight
   } = req.body;
 
-  res.status(200).json({
+  return res.status(200).json({
     impact: JSON.stringify([
       {
         currentlyInfected,
@@ -71,7 +71,6 @@ exports.getData = (req, res, next) => {
       }
     ])
   });
-  next();
 };
 
-export default covid19ImpactEstimator;
+module.export = covid19ImpactEstimator;

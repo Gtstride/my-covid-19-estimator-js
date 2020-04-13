@@ -1,8 +1,13 @@
-import express from 'express';
-
-import controller from './controller';
+const express = require('express');
+const controller = require('./controller');
 
 const router = express.Router();
 
-router.post('/post-data', controller.dataPost);
-router.get('/get-data', controller.getData);
+// router.get('/sign-up', (req, res) => {
+//   res.send('Going to get them');
+// });
+
+router.post('/on-covid-19/', controller.dataPost);
+router.get('/on-covid-19/', controller.getData);
+
+module.exports = router;

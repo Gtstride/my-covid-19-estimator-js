@@ -30,23 +30,32 @@ const covid19ImpactEstimator = (data) => {
   const impactInfByRT = takeWholeNum(
     infectionsByRequestedTime(normalTTE, impactRequstedCases)
   );
-  const sImpactInfByRT = takeWholeNum(
+  const severeImpactInfectionsByRequestedTime = takeWholeNum(
     infectionsByRequestedTime(normalTTE, sImpactRC)
   );
   const impactSCByRT = takeWholeNum(0.15 * impactInfByRT);
-  const sImpactSCByRT = takeWholeNum(0.15 * sImpactInfByRT);
+  const sImpactSCByRT = takeWholeNum(
+    0.15 * severeImpactInfectionsByRequestedTime
+  );
   const availableBeds = 0.35 * data.totalHospitalBeds;
   const impactHBByRT = takeWholeNum(availableBeds - 0.15 * impactInfByRT);
-  const sImpactHBByRT = takeWholeNum(availableBeds - 0.15 * sImpactInfByRT);
+  const sImpactHBByRT = takeWholeNum(
+    availableBeds - 0.15 * severeImpactInfectionsByRequestedTime
+  );
   const impactCForICUByRT = takeWholeNum(0.05 * impactInfByRT);
-  const sImpactCForICUByRT = takeWholeNum(0.05 * sImpactInfByRT);
+  const sImpactCForICUByRT = takeWholeNum(
+    0.05 * severeImpactInfectionsByRequestedTime
+  );
   const impactVent = takeWholeNum(0.02 * impactInfByRT);
-  const sImpactVent = takeWholeNum(0.02 * sImpactInfByRT);
+  const sImpactVent = takeWholeNum(
+    0.02 * severeImpactInfectionsByRequestedTime
+  );
   const myltp = impactInfByRT * data.region.avgDailyIncomePopulation;
   const impactDInF = takeWholeNum(
     (myltp * data.region.avgDailyIncomeInUSD) / normalTTE
   );
-  const multp2 = sImpactInfByRT * data.region.avgDailyIncomePopulation;
+  const multp2 = severeImpactInfectionsByRequestedTime
+    * data.region.avgDailyIncomePopulation;
   const sImpactDInF = takeWholeNum(
     (multp2 * data.region.avgDailyIncomeInUSD) / normalTTE
   );
@@ -63,7 +72,7 @@ const covid19ImpactEstimator = (data) => {
     },
     severeImpact: {
       currentlyInfected: sImpactRC,
-      infectionsByRequestedTime: sImpactInfByRT,
+      infectionsByRequestedTime: severeImpactInfectionsByRequestedTime,
       severeCasesByRequestedTime: sImpactSCByRT,
       hospitalBedsByRequestedTime: sImpactHBByRT,
       casesForICUByRequestedTime: sImpactCForICUByRT,
@@ -72,4 +81,4 @@ const covid19ImpactEstimator = (data) => {
     }
   };
 };
-export default covid19ImpactEstimator;
+module.export = covid19ImpactEstimator;
