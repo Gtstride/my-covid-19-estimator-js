@@ -4,5 +4,5 @@ import controller from './controller';
 
 const router = express.Router();
 
-router.post('/post-data', controller.dtatPost);
+router.post('/post-data', controller.dataPost);
 router.get('/get-data', controller.getData);
