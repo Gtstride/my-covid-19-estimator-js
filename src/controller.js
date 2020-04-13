@@ -1,6 +1,6 @@
 const covid19ImpactEstimator = require('./estimator').data;
 
-const impact = require('./estimator').data;
+// const impact = require('./estimator').data;
 
 exports.dataPost = (req, res, next) => {
   const {
