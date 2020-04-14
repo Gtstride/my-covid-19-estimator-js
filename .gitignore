@@ -103,5 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-src/frontend/assets
+# src/frontend/assets
 yarn.lock
