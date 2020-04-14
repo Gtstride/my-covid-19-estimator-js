@@ -1,3 +1,17 @@
+// const inputData = {
+//   region: {
+//     name: 'Africa',
+//     avgAge: 19.7,
+//     avgDailyIncomeInUSD: 4,
+//     avgDailyIncomePopulation: 0.73
+//   },
+//   periodType: 'days',
+//   timeToElapse: 38,
+//   reportedCases: 2747,
+//   population: 92931687,
+//   totalHospitalBeds: 678874
+// };
+
 const takeWholeNum = (x) => {
   const t = String(x);
   if (t.indexOf('.') < 0) {
@@ -22,7 +36,6 @@ const inDays = (periodType, timeToElapse) => {
   }
   return result;
 };
-
 
 const covid19ImpactEstimator = (data) => {
   const impactRC = data.reportedCases * 10;
@@ -69,4 +82,4 @@ const covid19ImpactEstimator = (data) => {
     }
   };
 };
-module.exports = covid19ImpactEstimator;
+export default covid19ImpactEstimator;
